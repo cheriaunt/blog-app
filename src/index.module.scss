@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Inter';
+}
+body {
+    font: 400 12px 'Inter';
+    line-height: 1.4em;
+    background: #FFFFFF;
+    color: #111111;
+    margin: 0 auto;
+    padding: 0;
+    .page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
+}
+
+.app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 1440px;
+    height: auto;
+    background: #EBEEF3;
+}

@@ -1,0 +1,109 @@
+.article {
+    width: 938px;
+    height: 140px;
+    margin-left: calc(50% - 938px/2);
+    margin-top: 0px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin-bottom: 26px;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+}
+.article-title {
+    display: flex;
+    flex-direction: row;
+    width: 682px;
+}
+.article-head{
+    width: auto;
+    height: 28px;
+    margin: 15px 0 0 19px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1890FF;
+}
+.article-head-link{
+    text-decoration: none; 
+}
+.article-btn{
+    background-color: white;
+    border:white;
+}
+
+.article-like{
+    width: 16px;
+    height: 16px;
+    margin-left: 13px;
+    margin-top: 18px;
+}
+.article-likeNum{
+    width: 13px;
+    height: 22px;
+    margin: 18px 0 0 5px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+}
+.article-tags{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+.article-tag{
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: 20px;
+    padding: 1px 5px;
+    line-height: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    margin: 6px 0 0 19px;
+}
+.article-description{
+    width: 682px;
+    height: 45px;
+    margin: 4px 0 0 19px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+}
+.article-author{
+    position: absolute;
+    width: 81px;
+    height: 28px;
+    right: 72px;
+    top: 15px;
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.85);
+}
+.article-createdAt{
+    position: absolute;
+    width: 83px;
+    height: 22px;
+    right: 72px;
+    top: 39px;
+    margin:0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.5);
+}
+.article-author-foto{
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    right: 14px;
+    top: 15px;
+}

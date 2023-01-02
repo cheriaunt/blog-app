@@ -1,0 +1,54 @@
+.header{
+    position: absolute;
+    height: 80px;
+    left: 0%;
+    right: 0%;
+    top: 0px;
+    background: #FFFFFF;
+}
+.main{
+    max-width: 900px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin: 0 auto;
+}
+
+.header-name{
+    width: 147px;
+    height: 56px;
+    left: 22px;
+    top: 9px;
+    margin: 0;
+    border: 1px solid white;
+}
+.header-signIn{
+    width: 84px;
+    height: 35px;
+    left: 1206px;
+    top: 22px;
+    border: 1px solid white;
+}
+
+
+.btn-header{
+    position: absolute;
+    background-color: white;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+}
+.header-signUp{
+    width: 109px;
+    height: 51px;
+    left: 1309px;
+    top: 16px;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    padding: 1em;
+    color: #52C41A;
+}
+
+
+

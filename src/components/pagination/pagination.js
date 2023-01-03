@@ -1,22 +1,23 @@
 import classes from './pagination.module.scss';
 import React, { useState } from 'react';
 import {Pagination} from 'antd';
+import withClass from '../../hoc/withClass';
 
 
 const PaginationEl = () => {
-    const [currentPage, setCurrentPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
     const onChange = (page) => {
         console.log(page);
         setCurrentPage(page);
       };
 
     return (
-    <div className={classes.pagination}>
+    <>
          <Pagination current={currentPage} 
         onChange={onChange} total={50} />
-    </div>
+    </>
     )
 
 };
 
-export default PaginationEl;
+export default withClass(PaginationEl,classes.pagination);

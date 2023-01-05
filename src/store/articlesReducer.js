@@ -6,7 +6,7 @@ const initialState = {
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
   
 export const articlesReducer = (state = initialState, action) => {
-  switch (action.type) {
+  switch (action?.type) {
     case GET_ALL_ARTICLES:
       return {
         articles: [...state.articles, ...action.payload],

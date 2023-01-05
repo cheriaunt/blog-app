@@ -2,18 +2,36 @@ import classes from './article.module.scss';
 import like from '../../source/like.svg';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
+import commentGfm from 'remark-gfm';
+import { v4 as uuidv4 } from 'uuid';
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { fetchArticle } from '../../services/ArticleService';
+// import { useParams } from 'react-router-dom';
 
-const Article = ({author, createdAt, description, favorited, favoritesCount, slug, tagList, title,}) => {
-    const date = format(new Date(createdAt), 'PP');
-    const tags = tagList.map((item) => (
-<p className={`${classes['article-tag']}`} key={item.toString()}>
-                 {(item.length ) ? item : null  }
-                     </p>
-    ));
+
+const Article = ({newArticle, fullArticle}) => {
+    // const dispatch = useDispatch();
+    // const params = useParams();
+    console.log(newArticle);
+    const {  body, favorited, description, slug, favoritesCount, tagList, title, author, createdAt } = newArticle;
+    const date = format(new Date(createdAt), 'LLLL d, y');
+    const tags = !!tagList ? tagList.map((item) => (
+        <p className={`${classes['article-tag']}`} key={uuidv4()}>
+                     {item ? item : null  }
+                         </p>
+        )): null;
+        
+    const showBody = fullArticle ? (
+        <div className={`${classes['post-body']}`}>< ReactMarkdown  commentPlugins={[commentGfm]} />{body ? body : null}</div>
+    ) : null;
+    
+
     return (
         <>
             <div className={`${classes['article-title']}`}>
-                <Link to={`/${slug}`} className={`${classes['article-head-link']}`}>
+                <Link to={`/articles/${slug}`} className={`${classes['article-head-link']}`}>
                  <h5 className={`${classes['article-head']}`}>{title}</h5>
                 </Link>
                 <button className={` ${classes['article-btn']}`}>
@@ -33,6 +51,7 @@ const Article = ({author, createdAt, description, favorited, favoritesCount, slu
                 {tags}
             </div>
             <p className={`${classes['article-description']}`}>{description}</p>
+            {showBody}
         </>
     )
 

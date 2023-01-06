@@ -1,6 +1,8 @@
 const initialState = {
   loading: true,
   articles: [],
+  articlesCount: 0,
+  offset: 0,
 };
 
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
@@ -9,8 +11,10 @@ export const articlesReducer = (state = initialState, action) => {
   switch (action?.type) {
     case GET_ALL_ARTICLES:
       return {
-        articles: [...state.articles, ...action.payload],
+        ...state,
+        articles: [...action.payload],
         loading: false,
+        articlesCount: action.articlesCount,
       }
 
     default:
@@ -18,4 +22,4 @@ export const articlesReducer = (state = initialState, action) => {
   }
 };
   
-export const getAllArticles = (payload) => ({ type: GET_ALL_ARTICLES, payload });
+// export const getAllArticles = (payload) => ({ type: GET_ALL_ARTICLES, payload });

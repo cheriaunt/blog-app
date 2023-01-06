@@ -1,8 +1,11 @@
 import classes from './layout.module.scss';
-import { useNavigate, NavLink, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+// import UserContext from '../../context';
+// import { useContext } from 'react';
 
 
 const Layout = () => {
+    // const { user, setUser, setToken } = useContext(UserContext);
     const navigate = useNavigate();
     const toHomepage = () =>{
         navigate(`/articles`);
@@ -13,6 +16,7 @@ const Layout = () => {
     const toSignUp = () =>{
         navigate(`/sign-up`);
     }
+    // "https://static.productionready.io/images/smiley-cyrus.jpg"
     return (
         <>
          <header className={classes.header}>
@@ -23,8 +27,6 @@ const Layout = () => {
             <button className={`${classes['header-signUp']} ${classes['btn-header']}`} onClick={toSignUp}>Sign Up
                 
             </button>
-            <NavLink to="/articles">ListPage</NavLink>
-            <NavLink to="/articles/slug">ArticlePage</NavLink>
         </header>
         <main>
             <Outlet />

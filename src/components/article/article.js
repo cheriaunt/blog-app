@@ -12,26 +12,22 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Article = ({newArticle, fullArticle}) => {
-    // const dispatch = useDispatch();
-    // const params = useParams();
-    console.log(newArticle);
     const {  body, favorited, description, slug, favoritesCount, tagList, title, author, createdAt } = newArticle;
     const date = format(new Date(createdAt), 'LLLL d, y');
-    const tags = !!tagList ? tagList.map((item) => (
+    const tags = !!tagList ? tagList.filter((item)=> item !==null && item!=='').map((item) => (
         <p className={`${classes['article-tag']}`} key={uuidv4()}>
-                     {item ? item : null  }
+                     {item}
                          </p>
         )): null;
-        
+    const bodyMarkdown = body ? body : null;
     const showBody = fullArticle ? (
-        <div className={`${classes['post-body']}`}>< ReactMarkdown  commentPlugins={[commentGfm]} />{body ? body : null}</div>
+        <div className={`${classes['post-body']}`}>< ReactMarkdown  children={bodyMarkdown} commentPlugins={[commentGfm]} /></div>
     ) : null;
-    
 
     return (
         <>
             <div className={`${classes['article-title']}`}>
-                <Link to={`/articles/${slug}`} className={`${classes['article-head-link']}`}>
+                <Link to={`/article/${slug}`} className={`${classes['article-head-link']}`}>
                  <h5 className={`${classes['article-head']}`}>{title}</h5>
                 </Link>
                 <button className={` ${classes['article-btn']}`}>

@@ -1,8 +1,7 @@
 import SignIn from "../components/sign-in-form";
 
 
-
-const SignInPage = () => {
+const EditProfilePage = () => {
   return (
     <>
       <SignIn />
@@ -10,4 +9,4 @@ const SignInPage = () => {
   );
 }
 
-export default SignInPage;
+export default EditProfilePage;

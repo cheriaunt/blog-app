@@ -2,7 +2,7 @@ import classes from './post.module.scss';
 import withClass from '../../hoc/withClass';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchArticle } from '../../services/ArticleService';
+import { fetchArticle } from '../../services/BlogService';
 import { useParams} from 'react-router-dom';
 import { Spin } from 'antd';
 

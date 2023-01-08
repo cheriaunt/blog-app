@@ -59,8 +59,12 @@ const Layout = () => {
                 <>
                     <button className={`${classes['header-createArticle']} ${classes['btn-header']}`} onClick={toCreateArticle}>Create article
                     </button>
+
                     <button className={`${classes['header-author']}  ${classes['btn-header']}`} onClick={toEditProfile}>{user.username}</button>
-                    <img src={avatarImage} alt="authorfoto" className={`${classes['header-author-foto']}`}/>
+                    <button className={`${classes['header-author-foto']} ${classes['btn-header']}`} onClick={toEditProfile}>
+                        <img src={avatarImage} alt="authorfoto" className={`${classes['header-author-foto']}`}/>
+                    </button>
+                    
                 
                     <button className={`${classes['header-right']} ${classes['btn-header']}`} onClick={toLogOut}>Log Out  
                     </button>

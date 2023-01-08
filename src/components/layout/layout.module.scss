@@ -39,6 +39,7 @@
     border: 1px solid white;
     
 }
+
 .header-right{
     width: 109px;
     height: 51px;
@@ -46,7 +47,7 @@
     top: 16px;
     padding: 1em;
 }
-.header-right:hover, .header-signIn:hover, .header-createArticle:hover{
+.header-right:hover, .header-signIn:hover, .header-createArticle:hover, .header-author:hover{
     border: 1px solid #52C41A;
     color: #52C41A;
     border-radius: 5px;
@@ -66,8 +67,8 @@
     position: absolute;
     width: 46px;
     height: 46px;
-    right: 158px;
-    top: 19px;
+    right: 75px;
+    top: 9px;
     border-radius: 100px;
 }
 

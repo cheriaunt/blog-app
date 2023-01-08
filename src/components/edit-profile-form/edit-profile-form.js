@@ -15,8 +15,8 @@ const EditProfile = () => {
     formState: { errors },
     } = useForm({
         defaultValues: {
-          username: user.username,
-          email: user.email,
+          username: localStorage.getItem('username'),
+          email: localStorage.getItem('email'),
         },
         mode: 'onChange',
       });
@@ -84,12 +84,12 @@ const EditProfile = () => {
                         {errors.password ? <p className={styles.errorInfo} >{errors.password.message}</p> : null}
                 </li>
                 <li className={styles['inputs-item']}>
-                <label htmlFor={'avatar image'} >Avatar image (url)
+                <label htmlFor='image' >Avatar image (url)
                     </label>
-                    <input type='text' id='avatar' placeholder='Avatar image' autoComplete='avatar' className={styles['inputs-item-input']}/>
+                    <input type='url' id='image' placeholder='Avatar image' autoComplete='image' className={errors.image ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('image', { required: false })}/>
                 </li>
             </ul>
-            <input className={styles['sign-up-btn']}type="submit" value="Save" />
+            <input className={styles['sign-up-btn']} type="submit" value="Save" />
         </form>
     )
 

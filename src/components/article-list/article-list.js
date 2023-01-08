@@ -15,7 +15,7 @@ const ArticleList = () => {
     const allArticles = useSelector((state) => state.articles.articles);
     const articlesCount = useSelector((state) => state.articlesCount.articlesCount);
     // console.log(articlesCount);
-    // console.log(allArticles);
+    console.log(allArticles);
     // const [arrArticles, setArrArticle] = useState([]);
     const loading = useSelector((state) => state.articles.loading);
     // const [articlesNumber, setArticlesNumber] = useState(5);
@@ -31,7 +31,7 @@ const ArticleList = () => {
         
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [param.page]);
-    // console.log(param.page);
+    // console.log(param);
     // const packArticles = allArticles.slice(currentPage*5-5, articlesNumber);
     
     const onChange = (page) => {

@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   article: articleReducer,
   articlesCount: articlesReducer,
   user : userReducer,
-  error : userReducer,
+  // errors : userReducer,
 //   username: userReducer, 
 //   image : userReducer,
 //   password: userReducer,

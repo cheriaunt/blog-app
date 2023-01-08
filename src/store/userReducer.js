@@ -1,8 +1,8 @@
-import { LOG_IN,GET_USER, EDIT_PROFILE, ERROR_LOG_IN } from "./typesAction";
+import { LOG_IN, GET_USER, EDIT_PROFILE, ERROR, LOG_OUT } from "./typesAction";
 
 const initialState = {
     user : null,
-    error : '',
+    errors : '',
 };
   
 export const userReducer = (state = initialState, action) => {
@@ -11,25 +11,30 @@ export const userReducer = (state = initialState, action) => {
         return {
             ...state,
             user: action.payload,
-            error: '',
+            errors: '',
         };
     case  GET_USER:
         return {
             ...state,
-            error: '',
+            user: action.payload,
+            errors: '',
         };
     case  EDIT_PROFILE:
         return {
             ...state,
-            user: action.payload,
-            error: '',
+            errors: '',
         };
-    case ERROR_LOG_IN:
+    case ERROR:
         return {
             ...state,
-            error: action.payload,
-            
+            errors: action.payload, 
         }
+    case  LOG_OUT:
+        return {
+            ...state,
+            user: null,
+            erros: '',
+        };
 
     default:
       return state;

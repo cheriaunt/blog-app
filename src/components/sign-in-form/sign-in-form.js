@@ -8,6 +8,7 @@ import withClass from "../../hoc/withClass";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSignIn } from '../../services/BlogService';
 import {useForm} from 'react-hook-form';
+import { useEffect } from "react";
 // import UserContext from "../../context";
 
 const SignIn = () => {
@@ -18,15 +19,19 @@ const SignIn = () => {
     formState: { errors },
   } = useForm({ mode: 'onBlur',
 });
-  const data = useSelector((state) => state.user.user)
-  const serverErrors = useSelector((state) => state.error.error);
-  console.log(data, 'data');
-  console.log(serverErrors);
+  const user = useSelector((state) => state.user.user);
+  const serverErrors = useSelector((state) => state.user.errors);
+  console.log(user, 'user');
+  console.log(serverErrors, 'serverErrors' );
   const navigate = useNavigate();
   const onSubmit = (data) => {
     dispatch(fetchSignIn(data.email, data.password));
-    navigate(`/articles`);
   }
+  useEffect(() => {
+    if (user) {
+      navigate('/articles')
+    }
+  }, [user])
     return (
           <form onSubmit={handleSubmit((data) => onSubmit(data))}>
             <h2 className={styles['form-header']}>Sign In
@@ -36,26 +41,26 @@ const SignIn = () => {
                   <label htmlFor='email' >Email address
                   </label>
                   <input type='text' id='email' placeholder={'Email address'} autoComplete='username' className={ errors.email ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('email', { required: 'Please input your email!' })}/>
-                  {errors.email ? <p>{errors.email.message}</p> : null}
-                  {serverErrors['email or password'] ? <p>email or password {serverErrors['email or password']}</p> : null}
+                  {errors.email ? <p className={styles.errorInfo}>{errors.email.message}</p> : null}
+                  {serverErrors['email or password'] ? <p className={styles.errorInfo}>email or password {serverErrors['email or password']}</p> : null}
               </li>
               <li className={styles['inputs-item']}>
                   <label htmlFor='password' >Password
                   </label>
                   <input type='password' id='password' placeholder='Password' suggested="current-password" autoComplete='current-password' name="password" className={ 
-          errors.password ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('password', {
+                      errors.password ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('password', {
                       required: 'Please input your password!',
                       maxLength: {
-                        value: 20,
-                        message: 'Your password must be between 6 and 20 characters long.',
+                        value: 40,
+                        message: 'Your password must be between 6 and 40 characters long.',
                       },
                       minLength: {
                         value: 6,
-                        message: 'Your password must be between 6 and 20 characters long.',
+                        message: 'Your password must be between 6 and 40 characters long.',
                       },
                     })}/>
-                {errors.password ? <p>{errors.password.message}</p> : null}
-                {serverErrors['email or password'] ? <p>email or password {serverErrors['email or password']}</p> : null}
+                {errors.password ? <p className={styles.errorInfo}>{errors.password.message}</p> : null}
+                {serverErrors['email or password'] ? <p className={styles.errorInfo}>email or password {serverErrors['email or password']}</p> : null}
               </li>
             </ul>  
             <input className={styles['sign-up-btn']}type="submit" value="Login" />

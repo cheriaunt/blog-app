@@ -62,11 +62,7 @@
 .error{
     border: 1px solid red;
 }
-p{
+.errorInfo{
     margin: 0;
     color: red;
-}
-p::before {
-    display: inline;
-    // content: "⚠ ";
 }

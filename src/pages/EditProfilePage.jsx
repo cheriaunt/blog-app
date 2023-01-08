@@ -1,10 +1,10 @@
-import SignIn from "../components/sign-in-form";
+import EditProfileForm from "../components/edit-profile-form/edit-profile-form";
 
 
 const EditProfilePage = () => {
   return (
     <>
-      <SignIn />
+      <EditProfileForm />
     </> 
   );
 }

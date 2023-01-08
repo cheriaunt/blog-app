@@ -1,4 +1,4 @@
-import { fetchGetUser } from './services/BlogService';
+// import { fetchGetUser } from './services/BlogService';
 import { Route, Routes, Navigate} from 'react-router-dom';
 import{ useEffect, useState} from 'react';
 import classes from'./index.module.scss';
@@ -16,6 +16,7 @@ import UserContext from './context';
 
 
 
+
 const App = () => {
     // const dispatch = useDispatch();
     // const [user, setUser] = useState();
@@ -26,6 +27,10 @@ const App = () => {
     //     }
     // });
 
+//     let token = localStorage.getItem('token');
+//     useEffect(() => {
+//         dispatch(fetchGetUser(token));
+//     }, [token])
   return (
     <>
         <UserContext.Provider value={{}}>

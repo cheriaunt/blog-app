@@ -44,13 +44,15 @@ export function fetchSignIn(email, password) {
         headers: { 'content-type': 'application/json' },
       });
       const body = await userRes.json();
-      if (!userRes.ok) dispatch({ type: 'ERROR_LOG_IN', payload: body });
-      dispatch({ type: 'LOG_IN', payload: body.user });
-      // localStorage.setItem('token', body.user.token);
-      // localStorage.setItem('username', body.user.username);
-      localStorage.setItem('email', email);
-      localStorage.setItem('password', password);
-      
+      if (userRes.ok) {
+        dispatch({ type: 'LOG_IN', payload: body.user });
+        localStorage.setItem('token', body.user.token);
+        localStorage.setItem('username', body.user.username);
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+      } else{
+        dispatch({ type: 'ERROR', payload: body.errors });        
+      }
     } catch (e) {
       alert(e.message);
     }
@@ -71,10 +73,8 @@ export function fetchSignUp(username, email, password) {
         }),
       });
       const body = await userRes.json();
-      if (!userRes.ok) dispatch({ type: 'ERROR_LOG_IN', payload: body });
-      dispatch(fetchSignIn(email, password));
-      // localStorage.setItem('token', body.user.token);
-      // localStorage.setItem('username', body.user.username);      
+      if (!userRes.ok) dispatch({ type: 'ERROR', payload: body.errors });
+      dispatch(fetchSignIn(email, password));     
     } catch (e) {
       alert(e.message);
     }
@@ -84,11 +84,11 @@ export function fetchGetUser(token) {
   return async function (dispatch) {
     try{
       const getUserRes = await fetch(`${apiBase}user`, {
-        method: 'PUT',
+        method: 'GET',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         });
-      if (!getUserRes.ok) throw new Error(`error fetch URL user ${getUserRes.status}`);
       const body = await getUserRes.json();
+      if (!getUserRes.ok) dispatch({ type: 'ERROR', payload: body.errors });
       dispatch({ type: 'GET_USER', payload: body.user});
     } catch (e) {
       alert(e.message);
@@ -98,7 +98,7 @@ export function fetchGetUser(token) {
 export function fetchEditProfile(email, password, username, image, token) {
   return async function (dispatch) {
     try{
-      const userRes = await fetch(`${apiBase}users/login`, {
+      const userRes = await fetch(`${apiBase}user`, {
         method: 'PUT',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -111,13 +111,14 @@ export function fetchEditProfile(email, password, username, image, token) {
         }),
       });
       const body = await userRes.json();
-      if (!userRes.ok) dispatch({ type: 'ERROR_EDIT_PROFILE', payload: body });
+      if (userRes.ok) {
       dispatch({ type: 'EDIT_PROFILE', payload: body.user });
       localStorage.setItem('token', body.user.token);
       localStorage.setItem('username', body.user.username);
       localStorage.setItem('email', body.user.email);
       localStorage.setItem('password', password);
       localStorage.setItem('image', body.user.image);
+      } else {dispatch({ type: 'ERROR', payload: body.errors });}
     } catch (e) {
       alert(e.message);
     }

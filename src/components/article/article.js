@@ -14,14 +14,14 @@ import { v4 as uuidv4 } from 'uuid';
 const Article = ({newArticle, fullArticle}) => {
     const {  body, favorited, description, slug, favoritesCount, tagList, title, author, createdAt } = newArticle;
     const date = format(new Date(createdAt), 'LLLL d, y');
-    const tags = !!tagList ? tagList.filter((item)=> item !==null && item!=='').map((item) => (
+    const tags = !!tagList ? tagList.filter((item)=> (item !== null && item !== ''&& item !== ' ')).map((item) => (
         <p className={`${classes['article-tag']}`} key={uuidv4()}>
                      {item}
                          </p>
         )): null;
     const bodyMarkdown = body ? body : null;
     const showBody = fullArticle ? (
-        <div className={`${classes['post-body']}`}>< ReactMarkdown  children={bodyMarkdown} commentPlugins={[commentGfm]} /></div>
+        <div className={`${classes['post-body']}`}>< ReactMarkdown  children={bodyMarkdown} remarkPlugins={[commentGfm]} /></div>
     ) : null;
 
     return (
@@ -35,9 +35,7 @@ const Article = ({newArticle, fullArticle}) => {
                 </button>
                 <p className={`${classes['article-likeNum']}`}>{favoritesCount}
                 </p>
-                <Link to='/profile'>
-                 <h6 className={`${classes['article-author']}`}>{author.username}</h6>
-                </Link>
+                <h6 className={`${classes['article-author']}`}>{author.username}</h6>
                 <p className={`${classes['article-createdAt']}`}>{date}</p>
                 <img src={`${author.image}`} alt="authorfoto" className={`${classes['article-author-foto']}`}/>
                 

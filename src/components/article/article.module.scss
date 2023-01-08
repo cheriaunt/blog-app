@@ -1,8 +1,11 @@
 .article {
-    width: 938px;
-    height: 140px;
-    margin-left: calc(50% - 938px/2);
-    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 908px;
+    min-height: 140px;
+    padding: 15px 14px 24px 19px;
+    // margin-left: calc(50% - 938px/2);
+    // margin-top: 0px;
     background: #FFFFFF;
     border-radius: 5px;
     margin-bottom: 26px;
@@ -14,9 +17,12 @@
     width: 682px;
 }
 .article-head{
-    width: auto;
-    height: 28px;
-    margin: 15px 0 0 19px;
+    max-width: 682px;
+    min-height: 28px;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    margin:0;
     font-weight: 400;
     font-size: 20px;
     line-height: 28px;
@@ -28,18 +34,21 @@
 .article-btn{
     background-color: white;
     border:white;
+    padding: 0;
+    height: 30px;
+
 }
 
 .article-like{
     width: 16px;
     height: 16px;
     margin-left: 13px;
-    margin-top: 18px;
+    // margin-top: 18px;
 }
 .article-likeNum{
     width: 13px;
     height: 22px;
-    margin: 18px 0 0 5px;
+    margin: 4px 0 0 5px;
     font-weight: 400;
     font-size: 12px;
     line-height: 22px;
@@ -49,30 +58,33 @@
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
+    max-width: 682px;
 }
 .article-tag{
     display: flex;
     justify-content: center;
-    width: auto;
-    height: 20px;
-    padding: 1px 5px;
+    min-height: 20px;
+    padding: 2px 5px;
     line-height: 15px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 2px;
-    margin: 6px 0 0 19px;
+    margin: 4px 8px 0 0;
+    overflow-wrap: anywhere;
 }
 .article-description{
     width: 682px;
-    height: 45px;
-    margin: 4px 0 0 19px;
+    min-height: 45px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
+    overflow-wrap: anywhere;
 }
 .article-author{
     position: absolute;
-    width: 81px;
     height: 28px;
-    right: 108px;
+    right: 72px;
     top: 15px;
     margin: 0;
     font-family: 'Inter';
@@ -86,9 +98,8 @@
 }
 .article-createdAt{
     position: absolute;
-    width: 83px;
     height: 22px;
-    right: 105px;
+    right: 72px;
     top: 39px;
     margin:0;
     font-family: 'Inter';
@@ -96,8 +107,6 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 22px;
-    // display: flex;
-    // align-items: center;
     color: rgba(0, 0, 0, 0.5);
 }
 .article-author-foto{
@@ -110,12 +119,14 @@
 }
 .post-body{
     width: 880px;
-    height: 685px;
-    margin: 25px 0 0 19px;
+    min-height: 685px;
+    margin-top: 25px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
+    // overflow-wrap: anywhere;
+    
 }

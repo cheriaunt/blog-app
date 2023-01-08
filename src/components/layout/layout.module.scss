@@ -39,18 +39,36 @@
     border: 1px solid white;
     
 }
-.header-signUp{
+.header-right{
     width: 109px;
     height: 51px;
     left: 1309px;
     top: 16px;
     padding: 1em;
 }
-.header-signUp:hover, .header-signIn:hover{
+.header-right:hover, .header-signIn:hover, .header-createArticle:hover{
     border: 1px solid #52C41A;
     color: #52C41A;
     border-radius: 5px;
 }
-
+.header-createArticle{
+    width: 130px;
+    height: 32px;
+    left: 1003px;
+    top: 25px;
+}
+.header-author{
+    height: 28px;
+    right: 217px;
+    top: 28px;
+}
+.header-author-foto{
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    right: 158px;
+    top: 19px;
+    border-radius: 100px;
+}
 
 

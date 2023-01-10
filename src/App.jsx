@@ -1,6 +1,6 @@
 // import { fetchGetUser } from './services/BlogService';
-import { Route, Routes, Navigate} from 'react-router-dom';
-import{ useEffect, useState} from 'react';
+import { Route, Routes, Navigate, Link} from 'react-router-dom';
+// import{ useEffect, useState} from 'react';
 import classes from'./index.module.scss';
 
 
@@ -12,7 +12,10 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import EditProfilePage from './pages/EditProfilePage';
 import UserContext from './context';
+import EditArticlePage from './pages/EditArticlePage';
+import CreateArticlePage from './pages/NewArticlePage';
 // import { useDispatch } from 'react-redux';
+import { Alert } from 'antd';
 
 
 
@@ -47,9 +50,22 @@ const App = () => {
                     <Route path="sign-in" element={<SignInPage/>} />
                     <Route path="sign-up" element={<SignUpPage/>} />
                     <Route path="profile" element={<EditProfilePage/>} />
+                    <Route path='article/:slug/edit' element={<EditArticlePage/>} />
+                    <Route path='new-article' element={<CreateArticlePage/>} />
 
                     
                 </Route>
+                <Route
+                    path="*"
+                    // element={<Alert message={`This page does not exist, you can return to the ${<Link to="/articles">main page!</Link>}`} type='info' showIcon />
+                    element={
+                    <div >
+                        <p>
+                        This page does not exist, you can return to the <Link to="/articles">main page!</Link>
+                        </p>
+                    </div>
+                    }
+                />
             </Routes>
         </UserContext.Provider>
     </>

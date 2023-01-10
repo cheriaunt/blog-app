@@ -1,5 +1,5 @@
 import classes from './layout.module.scss';
-import { useNavigate, Outlet, Link } from 'react-router-dom';
+import { useNavigate, Outlet} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchGetUser } from '../../services/BlogService';
@@ -52,7 +52,7 @@ const Layout = () => {
                 <>
                     <button className={`${classes['header-signIn']} ${classes['btn-header']}`} onClick={toSignIn}>Sign In
                     </button>
-                    <button className={`${classes['header-right']} ${classes['btn-header']}`} onClick={toSignUp}>Sign Up  
+                    <button className={`${classes['header-right']} ${classes['btn-header']} ${classes['header-signUp']}`} onClick={toSignUp}>Sign Up  
                     </button>
                 </>
              ) : (
@@ -66,7 +66,7 @@ const Layout = () => {
                     </button>
                     
                 
-                    <button className={`${classes['header-right']} ${classes['btn-header']}`} onClick={toLogOut}>Log Out  
+                    <button className={`${classes['header-right']} ${classes['btn-header']} ${classes['header-logOut']}`} onClick={toLogOut}>Log Out  
                     </button>
                 </>
             

@@ -40,7 +40,7 @@ const SignIn = () => {
               <li className={styles['inputs-item']}>
                   <label htmlFor='email' >Email address
                   </label>
-                  <input type='text' id='email' placeholder={'Email address'} autoComplete='username' className={ errors.email ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('email', { required: 'Please input your email!' })}/>
+                  <input type='text' id='email' placeholder='Email address' suggested="current-email" autoComplete='email' className={ errors.email ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('email', { required: 'Please input your email!' })}/>
                   {errors.email ? <p className={styles.errorInfo}>{errors.email.message}</p> : null}
                   {serverErrors['email or password'] ? <p className={styles.errorInfo}>email or password {serverErrors['email or password']}</p> : null}
               </li>

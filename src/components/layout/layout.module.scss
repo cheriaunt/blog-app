@@ -47,9 +47,15 @@
     top: 16px;
     padding: 1em;
 }
-.header-right:hover, .header-signIn:hover, .header-createArticle:hover, .header-author:hover{
+
+.header-signUp:hover, .header-signIn:hover, .header-createArticle:hover, .header-author:hover{
     border: 1px solid #52C41A;
     color: #52C41A;
+    border-radius: 5px;
+}
+.header-logOut:hover{
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    color: rgba(0, 0, 0, 0.75);
     border-radius: 5px;
 }
 .header-createArticle{

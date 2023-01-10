@@ -4,10 +4,16 @@
 const apiBase = 'https://blog.kata.academy/api/';
 
 
-export function fetchArticles(offset = 0) {
+export function fetchArticles(offset = 0,token) {
   return async function (dispatch) {
     try {
             const articlesRes = await fetch(`${apiBase}articles/?limit=5&offset=${offset}`)
+            // , {
+            //   method: 'GET',
+            //   headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: `Token ${token}`,
+            //   }})
             if (!articlesRes.ok) throw new Error(`error fetch URL  ${articlesRes.status}`);
             const body = await articlesRes.json();
             dispatch({ type: 'GET_ALL_ARTICLES', payload: body.articles, articlesCount: body.articlesCount });
@@ -20,7 +26,11 @@ export function fetchArticles(offset = 0) {
 export function fetchArticle(slug) {
     return async function (dispatch) {
         try{
-            const articleRes = await fetch(`${apiBase}articles/${slug}`);
+            const token = localStorage.getItem('token');
+            const articleRes = await fetch(`${apiBase}articles/${slug}`, {
+              method: 'GET',
+              headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            })
             if (!articleRes.ok) throw new Error(`error fetch URL articles/{slug} ${articleRes.status}`);
             const body = await articleRes.json();
             dispatch({ type: 'GET_ARTICLE', payload: body.article });
@@ -119,6 +129,57 @@ export function fetchEditProfile(email, password, username, image, token) {
       localStorage.setItem('password', password);
       localStorage.setItem('image', body.user.image);
       } else {dispatch({ type: 'ERROR', payload: body.errors });}
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+};
+export function fetchCreateArticle(title, description, body, tagList, token) {
+  return async function (dispatch) {
+    try{
+      const userRes = await fetch(`${apiBase}articles`, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          article: {
+            title: title,
+            description: description,
+            body: body,
+            tagList : tagList,
+          },
+        }),
+      });
+      const res = await userRes.json();
+      if (!userRes.ok) {dispatch({ type: 'ERROR_CREATE_ARTICLE', payload: res.errors });
+      } else dispatch({ type: 'CREATE_ARTICLE', payload: res.article});     
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+};
+export function fetchEditArticle(title, description, body, token, slug, tagList) {
+  return async function (dispatch) {
+    try{
+        const res = await fetch(`${apiBase}articles/${slug}`, {
+          method: 'PUT',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({
+            article: {
+              title: title,
+              description: description,
+              body: body,
+              tagList: tagList,
+            },
+          }),
+        })
+        const response = await res.json()
+        if (!res.ok) {
+          dispatch({ type: 'ERROR_CREATE_ARTICLE', payload: response.errors })
+          // dispatch({ type: 'EDIT', payload: null })
+        } else {
+          dispatch({ type: 'EDIT_ARTICLE', payload: response.article })
+          // dispatch({ type: 'ERRCREATE', payload: null })
+        }
     } catch (e) {
       alert(e.message);
     }

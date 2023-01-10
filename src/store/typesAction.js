@@ -3,3 +3,7 @@ export const GET_USER = 'GET_USER';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const ERROR = 'ERROR';
 export const LOG_OUT = 'LOG_OUT';
+export const GET_ARTICLE = 'GET_ARTICLE';
+export const CREATE_ARTICLE = 'CREATE_ARTICLE';
+export const ERROR_CREATE_ARTICLE = 'ERROR_CREATE';
+export const EDIT_ARTICLE = 'EDIT_ARTICLE';

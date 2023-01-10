@@ -1,9 +1,11 @@
+import { CREATE_ARTICLE, ERROR_CREATE_ARTICLE, GET_ARTICLE } from "./typesAction";
+
 const initialState = {
     loading: true,
     article: false,
   };
   
-  export const GET_ARTICLE = 'GET_ARTICLE';
+
     
   export const articleReducer = (state = initialState, action={}) => {
     switch (action.type) {
@@ -13,6 +15,14 @@ const initialState = {
             article: action.payload,
             loading: false,
         }
+      case CREATE_ARTICLE:
+        return {
+          ...state,
+          article: action.payload,
+          loading: false,
+        }
+        case ERROR_CREATE_ARTICLE:
+          return {}
   
       default:
         return state

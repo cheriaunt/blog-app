@@ -12,8 +12,7 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur',
-});
+  } = useForm({ mode: 'onBlur',});
   const user = useSelector((state) => state.user.user);
   const serverErrors = useSelector((state) => state.user.errors);
   console.log(user, 'user');
@@ -27,7 +26,8 @@ const SignIn = () => {
       navigate('/articles')
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  }, [user]);
+  
     return (
           <form onSubmit={handleSubmit((data) => onSubmit(data))}>
             <h2 className={styles['form-header']}>Sign In

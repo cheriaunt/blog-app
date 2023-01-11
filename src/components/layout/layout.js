@@ -3,17 +3,14 @@ import { useNavigate, Outlet} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchGetUser } from '../../services/BlogService';
-// import UserContext from '../../context';
-// import { useContext } from 'react';
-
+import { getToken } from '../../utils/getToken';
 
 const Layout = () => {
     const dispatch = useDispatch();
-    // const { user, setUser, setToken } = useContext(UserContext);
-
-    let token = localStorage.getItem('token');
+    let token = getToken();
     useEffect(() => {
         dispatch(fetchGetUser(token));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token])
     const  avatar = 'https://static.productionready.io/images/smiley-cyrus.jpg'
     let user = useSelector((state) => state.user.user);
@@ -42,13 +39,13 @@ const Layout = () => {
         localStorage.removeItem('token');
         navigate(`/articles`);
     }
-    // "https://static.productionready.io/images/smiley-cyrus.jpg"
+
     return (
         <>
          <header className={classes.header}>
             <button className={`${classes['header-name']} ${classes['btn-header']}`} onClick={toHomepage}>Realworld Blog
             </button>
-            {!user ? (
+            {(!user) ? (
                 <>
                     <button className={`${classes['header-signIn']} ${classes['btn-header']}`} onClick={toSignIn}>Sign In
                     </button>

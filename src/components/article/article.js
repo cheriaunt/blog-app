@@ -12,7 +12,6 @@ import { fetchArticles, fetchDeleteArticle, fetchFavoriteAnArticle, fetchUnFavor
 import { Popconfirm } from 'antd';
 import { getToken } from '../../utils/getToken';
 
-
 const Article = ({newArticle, fullArticle}) => {
     const {  body, favorited, description, slug, favoritesCount, tagList, title, author, createdAt } = newArticle;
     const dispatch = useDispatch();
@@ -85,7 +84,7 @@ const Article = ({newArticle, fullArticle}) => {
         Edit
       </button>
     ) : null
-
+    
     return (
         <>
             <div className={`${styles['article-title']}`}>

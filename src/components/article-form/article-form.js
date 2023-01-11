@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import withClass from "../../hoc/withClass";
 import { v4 as uuidv4 } from 'uuid';
-
 import styles from './article-form.module.scss';
 
 const ArticleForm = ({title, defaultValues, formSubmit}) => {
@@ -20,6 +19,7 @@ const ArticleForm = ({title, defaultValues, formSubmit}) => {
         name: 'tags',
         control,
       });
+      
     return (
         <form onSubmit={handleSubmit((data) => formSubmit(data, dirtyFields))}>
         { (!user) ? (<Navigate to="/sign-in" replace />) : (

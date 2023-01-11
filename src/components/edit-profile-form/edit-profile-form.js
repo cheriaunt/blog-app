@@ -39,6 +39,7 @@ const EditProfile = () => {
         navigate('/articles');
         }
     })
+    
     return (
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
             <h2 className={styles['form-header']}>Edit Profile

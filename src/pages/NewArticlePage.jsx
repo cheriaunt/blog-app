@@ -5,7 +5,6 @@ import ArticleForm from "../components/article-form";
 import { fetchCreateArticle } from "../services/BlogService";
 import { getToken } from "../utils/getToken";
 
-
 const CreateArticlePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

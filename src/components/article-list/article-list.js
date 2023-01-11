@@ -5,7 +5,6 @@ import { Spin, Pagination } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchArticles } from '../../services/BlogService';
 import { v4 as uuidv4 } from 'uuid';
-
 import Article from '../article';
 
 const ArticleList = () => {
@@ -13,7 +12,7 @@ const ArticleList = () => {
     const dispatch = useDispatch();
     const param = useParams();
     const allArticles = useSelector((state) => state.articles.articles);
-    const articlesCount = useSelector((state) => state.articlesCount.articlesCount);
+    const articlesCount = useSelector((state) => state.articles.articlesCount);
     const loading = useSelector((state) => state.articles.loading);
     const [currentPage, setCurrentPage] = useState(1);
     const navigate = useNavigate();
@@ -21,10 +20,12 @@ const ArticleList = () => {
         const page = param.page ? Number(param.page?.split('=')[1]) : 1;
         setCurrentPage(page);
         dispatch(fetchArticles(page*5-5));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [param.page]);
     const onChange = (page) => {
         navigate(`/articles/page=${page}`);
     };
+
     return(
         <>
             < div >

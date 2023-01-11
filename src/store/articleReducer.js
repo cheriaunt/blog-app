@@ -6,37 +6,33 @@ const initialState = {
     error: false,
   };
   
-
-    
-  export const articleReducer = (state = initialState, action={}) => {
-    switch (action.type) {
-      case GET_ARTICLE:
-        return {
-            ...state,
-            article: action.payload,
-            loading: false,
-        }
-      case CREATE_ARTICLE:
-        return {
+export const articleReducer = (state = initialState, action={}) => {
+  switch (action.type) {
+    case GET_ARTICLE:
+      return {
           ...state,
           article: action.payload,
           loading: false,
-        }
-        case ERROR_ARTICLE:
-          return{
+      }
+    case CREATE_ARTICLE:
+      return {
+        ...state,
+        article: action.payload,
+        loading: false,
+      }
+      case ERROR_ARTICLE:
+        return{
+        ...state,
+        loading: false,
+      }
+      case DELETE_ARTICLE:
+        return {
           ...state,
           loading: false,
-        }
-        case DELETE_ARTICLE:
-          return {
-            ...state,
-            loading: false,
 
-          }
-  
-      default:
-        return state
-    }
-  };
-    
-//   export const getArticle = (payload) => ({ type: GET_ARTICLE, payload: body.article });
+        }
+
+    default:
+      return state
+  }
+};

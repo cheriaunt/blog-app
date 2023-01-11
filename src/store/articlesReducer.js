@@ -21,5 +21,3 @@ export const articlesReducer = (state = initialState, action) => {
       return state
   }
 };
-  
-// export const getAllArticles = (payload) => ({ type: GET_ALL_ARTICLES, payload });

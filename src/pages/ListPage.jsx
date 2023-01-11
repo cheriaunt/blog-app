@@ -1,6 +1,5 @@
 import ArticleList from '../components/article-list';
 
-
 const ListPage = () => {
   return (
     <>

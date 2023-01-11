@@ -1,6 +1,4 @@
-// import ArticlePage from "../../pages/ArticlePage";
 import { Link, useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
 import styles from './sign-up-form.module.scss';
 
 import withClass from "../../hoc/withClass";
@@ -30,8 +28,9 @@ const SignUp = () => {
     if (user){
         navigate('/articles');
     }
-    
-  }, [user])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  
     return (
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
             <h2 className={styles['form-header']}>Create new account

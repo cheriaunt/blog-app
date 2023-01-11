@@ -94,7 +94,7 @@ export function fetchGetUser(token) {
     try{
       const getUserRes = await fetch(`${apiBase}user`, {
         method: 'GET',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
         });
       const body = await getUserRes.json();
       if (!getUserRes.ok) dispatch({ type: 'ERROR', payload: body.errors });

@@ -6,12 +6,7 @@ import { userReducer } from './userReducer';
 const rootReducer = combineReducers({
   articles: articlesReducer,
   article: articleReducer,
-  articlesCount: articlesReducer,
   user : userReducer,
-  // errors : userReducer,
-//   username: userReducer, 
-//   image : userReducer,
-//   password: userReducer,
 });
 
 export default rootReducer;

@@ -1,44 +1,43 @@
 // import {getAllArticles} from '../store/articlesReducer';
 // import { getArticle } from '../store/articleReducer';
 
+import { getToken } from "../utils/getToken";
+
 const apiBase = 'https://blog.kata.academy/api/';
 
 
 export function fetchArticles(offset = 0) {
   return async function (dispatch) {
     try {
-            const articlesRes = await fetch(`${apiBase}articles/?limit=5&offset=${offset}`)
-            // , {
-            //   method: 'GET',
-            //   headers: {
-            //     'Content-Type': 'application/json',
-            //     Authorization: `Token ${token}`,
-            //   }})
-            if (!articlesRes.ok) throw new Error(`error fetch URL  ${articlesRes.status}`);
-            const body = await articlesRes.json();
-            dispatch({ type: 'GET_ALL_ARTICLES', payload: body.articles, articlesCount: body.articlesCount });
+      const token = localStorage.getItem('token');
+      const articlesRes = await fetch(`${apiBase}articles/?limit=5&offset=${offset}`, {
+        method: 'GET',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      if (!articlesRes.ok) throw new Error(`error fetch URL  ${articlesRes.status}`);
+      const body = await articlesRes.json();
+      dispatch({ type: 'GET_ALL_ARTICLES', payload: body.articles, articlesCount: body.articlesCount });
     } catch (e) {
-      alert(e.message)
+      console.log(e.message);
     }
   }
 };
 
 export function fetchArticle(slug) {
-    return async function (dispatch) {
-        try{
-            const token = localStorage.getItem('token');
-            const articleRes = await fetch(`${apiBase}articles/${slug}`, {
-              method: 'GET',
-              headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            })
-            if (!articleRes.ok) throw new Error(`error fetch URL articles/{slug} ${articleRes.status}`);
-            const body = await articleRes.json();
-            dispatch({ type: 'GET_ARTICLE', payload: body.article });
-        } catch (e) {
-            alert(e.message)
-          }
-        }
-          
+  return async function (dispatch) {
+    try{
+      const token = getToken();
+      const articleRes = await fetch(`${apiBase}articles/${slug}`, {
+        method: 'GET',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      if (!articleRes.ok) throw new Error(`error fetch URL articles/{slug} ${articleRes.status}`);
+      const body = await articleRes.json();
+      dispatch({ type: 'GET_ARTICLE', payload: body.article });
+    } catch (e) {
+      console.log(e.message);
+      }
+  }      
 };
 export function fetchSignIn(email, password) {
   return async function (dispatch) {
@@ -64,7 +63,7 @@ export function fetchSignIn(email, password) {
         dispatch({ type: 'ERROR', payload: body.errors });        
       }
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
@@ -86,7 +85,7 @@ export function fetchSignUp(username, email, password) {
       if (!userRes.ok) dispatch({ type: 'ERROR', payload: body.errors });
       dispatch(fetchSignIn(email, password));     
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
@@ -101,11 +100,11 @@ export function fetchGetUser(token) {
       if (!getUserRes.ok) dispatch({ type: 'ERROR', payload: body.errors });
       dispatch({ type: 'GET_USER', payload: body.user});
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
-export function fetchEditProfile(email, password, username, image, token) {
+export function fetchEditProfile(email, password = '', username, image = '', token) {
   return async function (dispatch) {
     try{
       const userRes = await fetch(`${apiBase}user`, {
@@ -130,7 +129,7 @@ export function fetchEditProfile(email, password, username, image, token) {
       localStorage.setItem('image', body.user.image);
       } else {dispatch({ type: 'ERROR', payload: body.errors });}
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
@@ -153,7 +152,7 @@ export function fetchCreateArticle(title, description, body, tagList, token) {
       if (!userRes.ok) {dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
       } else dispatch({ type: 'CREATE_ARTICLE', payload: res.article});     
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
@@ -172,31 +171,64 @@ export function fetchEditArticle(title, description, body, tagList, token, slug)
             },
           }),
         })
-        const response = await res.json()
+        const response = await res.json();
         if (!res.ok) {
-          dispatch({ type: 'ERROR_ARTICLE', payload: response.errors })
-          // dispatch({ type: 'EDIT', payload: null })
+          dispatch({ type: 'ERROR_ARTICLE', payload: response.errors });
         } else {
-          dispatch({ type: 'EDIT_ARTICLE', payload: response.article })
-          // dispatch({ type: 'ERRCREATE', payload: null })
+          dispatch({ type: 'EDIT_ARTICLE', payload: response.article });
         }
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   }
 };
-export function fetchDeleteArticle(slug, token) {
+export function fetchDeleteArticle(slug) {
   return async function (dispatch) {
     try{
+      const token = getToken();
       const userRes = await fetch(`${apiBase}articles/${slug}`,{
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
+        headers:  { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       })
       
       if (!userRes.ok) {
         const res = await userRes.json();
         dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
       } else dispatch({ type: 'DELETE_ARTICLE', payload: 'ok'});     
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+};
+export function fetchFavoriteAnArticle (slug) {
+  return async function (dispatch) {
+    try{
+      const token = getToken();
+      const res = await fetch(`${apiBase}articles/${slug}/favorite`, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      const body = await res.json();
+      if (res.ok) {
+        dispatch({ type: 'GET_ARTICLE', payload: body.article });
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+};
+export function fetchUnFavoriteAnArticle (slug) {
+  return async function (dispatch) {
+    try{
+      const token = getToken();
+      const res = await fetch(`${apiBase}articles/${slug}/favorite`, {
+        method: 'DELETE',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      const body = await res.json()
+      if (res.ok) {
+        dispatch({ type: 'GET_ARTICLE', payload: body.article })
+      }
     } catch (e) {
       console.log(e.message);
     }

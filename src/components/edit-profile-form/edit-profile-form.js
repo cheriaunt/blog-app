@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import withClass from "../../hoc/withClass";
 import { fetchEditProfile} from "../../services/BlogService";
+import { getToken } from "../../utils/getToken";
 import styles from './edit-profile-form.module.scss';
 
 const EditProfile = () => {
@@ -27,16 +28,16 @@ const EditProfile = () => {
     const navigate = useNavigate();
     const [editProfile, setEditProfile] = useState(false);
     const onSubmit = (data) => {
-        let token = localStorage.getItem('token');
+        let token = getToken();
         dispatch(fetchEditProfile(data.email, data.password, data.username, data.image, token));
         setEditProfile(true);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (editProfile){
-        setEditProfile(false)
+        setEditProfile(false);
         navigate('/articles');
         }
-
     })
     return (
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>

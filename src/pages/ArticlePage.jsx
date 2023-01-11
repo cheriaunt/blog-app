@@ -7,8 +7,6 @@ import { useParams} from 'react-router-dom';
 import { Spin } from 'antd';
 import Article from '../components/article/article';
 
-
-
 const ArticlePage = () => {
   const fullArticle = true;
   const dispatch = useDispatch();
@@ -23,7 +21,7 @@ const ArticlePage = () => {
   return (
     <>
       {loading && <Spin size='large' />}
-            {view}
+      {view}
     </> 
   );
 }

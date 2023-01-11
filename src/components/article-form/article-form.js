@@ -29,7 +29,11 @@ const ArticleForm = ({title, defaultValues, formSubmit}) => {
                 <li className={styles['inputs-item']}>
                     <label htmlFor='title'>Title
                     </label>
-                    <input type={'text'} id='title' placeholder='Title' className={errors.title ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('title', { required: 'Please input your title!' })}/>
+                    <input type={'text'} id='title' placeholder='Title' className={errors.title ? `${styles['inputs-item-input']} ${styles.error}`: styles['inputs-item-input']} {...register('title', { required: 'Please input your title!',
+                        maxLength: {
+                            value: 5000,
+                            message: 'Your title must be between 1 and 5000 characters long.',
+                        }, })}/>
                     {errors.title ? <p className={styles.errorInfo}>{errors.title.message}</p> : null}
                 </li>
                 <li className={styles['inputs-item']}>

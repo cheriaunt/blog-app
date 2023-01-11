@@ -41,6 +41,7 @@ const EditArticlePage = () => {
             setEdit(false);
             navigate(`/article/${Article.slug}`);
         }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Article])
   return (
     <>

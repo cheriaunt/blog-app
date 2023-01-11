@@ -96,11 +96,11 @@ const SignUp = () => {
             <input
                 className={styles.input}
                 type='checkbox'
-                {...register('personalInformation', { required: true })}
+                {...register('agree', { required: true })}
             />
-            {errors.personalInformation ? <p className={styles.errorInfo} >Should accept agreement</p> : null}
             <span className={styles.checkbox}></span>I agree to the processing of my personal information
             </label>
+            {errors.agree ? <p className={styles.errorInfo} >Should accept agreement</p> : null}
             <input className={styles['sign-up-btn']}type="submit" value="Create" />
             <div className={styles.info}>
             <span className={styles['info-grey']}>Already have an account? 

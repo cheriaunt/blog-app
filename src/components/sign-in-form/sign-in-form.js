@@ -1,15 +1,10 @@
-// import ArticlePage from "../../pages/ArticlePage";
 import { Link, useNavigate} from "react-router-dom";
-// import { useEffect } from "react";
-import styles from './sign-in-form.module.scss';
-
 import withClass from "../../hoc/withClass";
-// import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSignIn } from '../../services/BlogService';
 import {useForm} from 'react-hook-form';
 import { useEffect } from "react";
-// import UserContext from "../../context";
+import styles from './sign-in-form.module.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -31,6 +26,7 @@ const SignIn = () => {
     if (user) {
       navigate('/articles')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
     return (
           <form onSubmit={handleSubmit((data) => onSubmit(data))}>

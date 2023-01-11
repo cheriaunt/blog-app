@@ -1,16 +1,15 @@
 import styles from './article.module.scss';
 import like from '../../source/like.svg';
+import unlike from '../../source/unlike.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import commentGfm from 'remark-gfm';
 import { v4 as uuidv4 } from 'uuid';
-// import { Popconfirm } from 'antd';
-import { ExclamationCircleFilled } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchArticles, fetchDeleteArticle } from '../../services/BlogService';
-import { Modal } from 'antd';
+import { fetchArticles, fetchDeleteArticle, fetchFavoriteAnArticle, fetchUnFavoriteAnArticle } from '../../services/BlogService';
+import { Popconfirm } from 'antd';
 import { getToken } from '../../utils/getToken';
 
 
@@ -19,34 +18,72 @@ const Article = ({newArticle, fullArticle}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [onDelete, setDelete] = useState(false);
+    const [hadLike, setHadLike] = useState(favorited)
+    const [numberLikes, setNumberLikes] = useState(favoritesCount)
     const allArticles = useSelector((state) => state.articles.articles);
     const username = localStorage.getItem('username');
     const token = getToken();
     const date = format(new Date(createdAt), 'LLLL d, y');
     const tags = !!tagList ? tagList.filter((item)=> (item !== null && item !== ''&& item !== ' ')).map((item) => (
         <p className={`${styles['article-tag']}`} key={uuidv4()}>{item}</p>)): null;
+    const onLike = () => {
+      let likes = numberLikes
+      if (token !== 'null') {
+        if (hadLike === false) {
+          dispatch(fetchFavoriteAnArticle(slug))
+          setHadLike(true)
+          setNumberLikes(++likes)
+        } else {
+          dispatch(fetchUnFavoriteAnArticle(slug))
+          setHadLike(false)
+          setNumberLikes(--likes)
+        }
+      }
+    }
+    const onEdit = () =>{
+      navigate(`/article/${slug}/edit`);
+    }
     useEffect(() => {
       if (onDelete === true && allArticles) {
         // dispatch(fetchArticles());
         navigate('/articles');
         setDelete(false);
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[allArticles])
+    const confirm = (e) => {
+      setDelete(true);
+      dispatch(fetchDeleteArticle(slug));
+      dispatch(fetchArticles());
+    };
+    const cancel = (e) => {
+      console.log('Cancel');
+    };
     const bodyMarkdown = body ? body : null;
     const showBody = fullArticle ? (
         <div className={`${styles['post-body']}`}>< ReactMarkdown  children={bodyMarkdown} remarkPlugins={[commentGfm]} /></div>
     ) : null;
     const buttonDelete =
     fullArticle && author.username === username ? (
-      <button className={styles.delete} onClick={() => ShowConfirm(slug, token, dispatch, setDelete)}>
+      <Popconfirm
+          title="Delete the task"
+          description="Are you sure to delete this task?"
+          onConfirm={confirm}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+          placement='rightTop'
+          >
+      <button className={`${styles.delete} ${styles['article-btn']}`} >
         Delete
       </button>
+      </Popconfirm>
     ) : null
     const buttonEdit =
     fullArticle && author.username === username ? (
-      <Link className={styles.edit} to={`/article/${slug}/edit`}>
+      <button className={`${styles.edit} ${styles['article-btn']}`} onClick={onEdit}>
         Edit
-      </Link>
+      </button>
     ) : null
 
     return (
@@ -55,10 +92,10 @@ const Article = ({newArticle, fullArticle}) => {
                 <Link to={`/article/${slug}`} className={`${styles['article-head-link']}`}>
                  <h5 className={`${styles['article-head']}`}>{title}</h5>
                 </Link>
-                <button className={` ${styles['article-btn']}`}>
-                <img src={like} alt="like" className={`${styles['article-like']}`}/>
+                <button className={`${styles['article-btn']}`} onClick={onLike}>
+                <img src={hadLike ? unlike : like} alt="like" className={`${styles['article-like']}`}/>
                 </button>
-                <p className={`${styles['article-likeNum']}`}>{favoritesCount}
+                <p className={`${styles['article-likeNum']}`}>{numberLikes}
                 </p>
                 <h6 className={`${styles['article-author']}`}>{author.username}</h6>
                 <p className={`${styles['article-createdAt']}`}>{date}</p>
@@ -79,43 +116,3 @@ const Article = ({newArticle, fullArticle}) => {
 };
 
 export default Article;
-
-const ShowConfirm = (slug, token, dispatch, setDelete) => {
-    const { confirm } = Modal
-    confirm({
-      wrapClassName: 'modalWindow',
-      title: 'Are you sure to delete this article?',
-      icon: <ExclamationCircleFilled />,
-      okText: 'Yes',
-      cancelText: 'No',
-      onOk() {
-        setDelete(true);
-        dispatch(fetchDeleteArticle( slug, token));
-        dispatch(fetchArticles());
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    })
-//     const confirm = (e) => {
-//         console.log(e);
-//         message.success('Click on Yes');
-//       };
-      
-//       const cancel = (e) => {
-//         console.log(e);
-//         message.error('Click on No');
-//       };
-//       <Popconfirm
-//         title="Delete the task"
-//         description="Are you sure to delete this task?"
-//         onConfirm={confirm}
-//         onCancel={cancel}
-//         okText="Yes"
-//         cancelText="No"
-//         placement={'right'} 
-//         >
-//         <a href="#">Delete</a>
-//   </Popconfirm>
-
-}

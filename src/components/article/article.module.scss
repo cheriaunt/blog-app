@@ -36,6 +36,7 @@
     border:white;
     padding: 0;
     height: 30px;
+    border-radius: 5px;
 
 }
 
@@ -141,4 +142,26 @@
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
     // overflow-wrap: anywhere;
+}
+.delete{
+    position: absolute;
+    width: 78px;
+    left: 769px;
+    top: 91px;
+    color: #F5222D;
+    border: 1px solid #F5222D;
+}
+.edit{
+    position: absolute;
+    width: 66px;
+    left: 859px;
+    top: 91px;
+    color: #52C41A;
+    border: 1px solid #52C41A;
+}
+.delete:hover{
+    background-color: #f5222d30;
+}
+.edit:hover{
+    background-color: #55c59854;
 }

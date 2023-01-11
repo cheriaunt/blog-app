@@ -4,7 +4,7 @@
 const apiBase = 'https://blog.kata.academy/api/';
 
 
-export function fetchArticles(offset = 0,token) {
+export function fetchArticles(offset = 0) {
   return async function (dispatch) {
     try {
             const articlesRes = await fetch(`${apiBase}articles/?limit=5&offset=${offset}`)
@@ -150,7 +150,7 @@ export function fetchCreateArticle(title, description, body, tagList, token) {
         }),
       });
       const res = await userRes.json();
-      if (!userRes.ok) {dispatch({ type: 'ERROR_CREATE_ARTICLE', payload: res.errors });
+      if (!userRes.ok) {dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
       } else dispatch({ type: 'CREATE_ARTICLE', payload: res.article});     
     } catch (e) {
       alert(e.message);
@@ -174,7 +174,7 @@ export function fetchEditArticle(title, description, body, token, slug, tagList)
         })
         const response = await res.json()
         if (!res.ok) {
-          dispatch({ type: 'ERROR_CREATE_ARTICLE', payload: response.errors })
+          dispatch({ type: 'ERROR_ARTICLE', payload: response.errors })
           // dispatch({ type: 'EDIT', payload: null })
         } else {
           dispatch({ type: 'EDIT_ARTICLE', payload: response.article })
@@ -182,6 +182,21 @@ export function fetchEditArticle(title, description, body, token, slug, tagList)
         }
     } catch (e) {
       alert(e.message);
+    }
+  }
+};
+export function fetchDeleteArticle(slug, token) {
+  return async function (dispatch) {
+    try{
+      const userRes = await fetch(`${apiBase}articles/${slug}`,{
+        method: 'DELETE',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      const res = await userRes.json();
+      if (!userRes.ok) {dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
+      } else dispatch({ type: 'DELETE_ARTICLE', payload: 'ok'});     
+    } catch (e) {
+      console.log(e.message);
     }
   }
 };

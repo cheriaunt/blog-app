@@ -1,8 +1,9 @@
-import { CREATE_ARTICLE, ERROR_CREATE_ARTICLE, GET_ARTICLE } from "./typesAction";
+import { CREATE_ARTICLE, DELETE_ARTICLE, ERROR_ARTICLE, GET_ARTICLE } from "./typesAction";
 
 const initialState = {
     loading: true,
     article: false,
+    error: false,
   };
   
 
@@ -21,8 +22,18 @@ const initialState = {
           article: action.payload,
           loading: false,
         }
-        case ERROR_CREATE_ARTICLE:
-          return {}
+        case ERROR_ARTICLE:
+          return{
+          ...state,
+          error: action.payload,
+          loading: false,
+        }
+        case DELETE_ARTICLE:
+          return {
+            ...state,
+            loading: false,
+
+          }
   
       default:
         return state

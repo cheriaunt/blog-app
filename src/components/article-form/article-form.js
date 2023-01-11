@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './article-form.module.scss';
 import { useEffect, useState } from "react";
 
-const ArticleForm = () => {
-    const articleTitle = 'create';
-    const title = articleTitle ? 'Create new article' : 'Edit article' ;
+const ArticleForm = ({title, defaultValues}) => {
+    // const articleTitle = 'create';
+    // const title = articleTitle === 'create' ? 'Create new article' : 'Edit article' ;
     const [onCreate, setCreate] = useState(false);
     const user = useSelector((state) => state.user.user);
     const userArticle = useSelector((state) => state.article.article);
@@ -31,22 +31,7 @@ const ArticleForm = () => {
     setCreate(true);
     
     };
-    
-    let defaultValues = {
-        title: '',
-        description: '',
-        text: '',
-        tags: [],
-      };
-    //   if (userArticle) {
-    //     const { title,description, body, tagList } = userArticle;
-    //     defaultValues = {
-    //       title: title,
-    //       description: description,
-    //       text: body,
-    //       tags: tagList,
-    //     };
-    //   }
+      
     const {
         register,
         handleSubmit,
@@ -128,4 +113,4 @@ const ArticleForm = () => {
     )
 };
 
-export default withClass(ArticleForm, styles.createArticle);
+export default withClass(ArticleForm, styles.form__article);

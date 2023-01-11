@@ -1,37 +1,13 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import withClass from "../../hoc/withClass";
-import { fetchCreateArticle } from "../../services/BlogService";
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './article-form.module.scss';
-import { useEffect, useState } from "react";
 
-const ArticleForm = ({title, defaultValues}) => {
-    // const articleTitle = 'create';
-    // const title = articleTitle === 'create' ? 'Create new article' : 'Edit article' ;
-    const [onCreate, setCreate] = useState(false);
+const ArticleForm = ({title, defaultValues, formSubmit}) => {
     const user = useSelector((state) => state.user.user);
-    const userArticle = useSelector((state) => state.article.article);
-    console.log(userArticle, 'article');
-    console.log(user,'user');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const formSubmit = (data) => {
-    const { description, text, title, tags } = data;
-    // const article = {
-    //   title,
-    //   description,
-    //   body: text,
-    //   tagList: tags,
-    // };
-    const token = localStorage.getItem('token');
-    dispatch(fetchCreateArticle(title, description, text, tags, token));
-    setCreate(true);
-    
-    };
-      
     const {
         register,
         handleSubmit,
@@ -40,25 +16,13 @@ const ArticleForm = ({title, defaultValues}) => {
         formState: { dirtyFields, errors },
     } = useForm({ mode: 'onBlur', defaultValues,
     });
-    const serverErrors = useSelector((state) => state.user.errors);
-    // console.log(user, 'user');
-    // console.log(serverErrors, 'serverErrors' );
     const { fields, remove, append } = useFieldArray({
         name: 'tags',
         control,
       });
-    // const content = (!user)? (<Navigate to="/sign-up" replace />): ()
-    useEffect(() => {
-        if (onCreate === true && userArticle) {
-            setCreate(false);
-            navigate(`/article/${userArticle.slug}`);
-        }
-      }, [userArticle])
-    
     return (
         <form onSubmit={handleSubmit((data) => formSubmit(data, dirtyFields))}>
-            {
-        (!user) ? (<Navigate to="/sign-in" replace />) : (
+        { (!user) ? (<Navigate to="/sign-in" replace />) : (
             <>
             <h2 className={styles['form-header']}>{title}</h2>
             <ul className={styles['inputs']}>
@@ -105,11 +69,8 @@ const ArticleForm = ({title, defaultValues}) => {
             <input className={` ${styles['create-article__btn']} ${styles['form__submit']}`} type="submit" value="Send" />
             </>
             
-        )
-    }
-            
-            </form>
-        
+        )}
+        </form>
     )
 };
 

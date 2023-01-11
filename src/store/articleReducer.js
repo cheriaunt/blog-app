@@ -25,7 +25,6 @@ const initialState = {
         case ERROR_ARTICLE:
           return{
           ...state,
-          error: action.payload,
           loading: false,
         }
         case DELETE_ARTICLE:

@@ -157,7 +157,7 @@ export function fetchCreateArticle(title, description, body, tagList, token) {
     }
   }
 };
-export function fetchEditArticle(title, description, body, token, slug, tagList) {
+export function fetchEditArticle(title, description, body, tagList, token, slug) {
   return async function (dispatch) {
     try{
         const res = await fetch(`${apiBase}articles/${slug}`, {
@@ -190,10 +190,12 @@ export function fetchDeleteArticle(slug, token) {
     try{
       const userRes = await fetch(`${apiBase}articles/${slug}`,{
         method: 'DELETE',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       })
-      const res = await userRes.json();
-      if (!userRes.ok) {dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
+      
+      if (!userRes.ok) {
+        const res = await userRes.json();
+        dispatch({ type: 'ERROR_ARTICLE', payload: res.errors });
       } else dispatch({ type: 'DELETE_ARTICLE', payload: 'ok'});     
     } catch (e) {
       console.log(e.message);

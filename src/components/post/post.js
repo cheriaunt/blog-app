@@ -10,17 +10,7 @@ import { Spin } from 'antd';
 import Article from '../article/article';
 
 const Post = () => {
-    const fullArticle = true;
-    const dispatch = useDispatch();
-    const params = useParams();
-    const article = useSelector((state) => state.article.article);
-    const loading = useSelector((state) => state.article.loading);
-    useEffect(() => {
-        dispatch(fetchArticle(params.slug));
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [dispatch]);
     
-      const view = !loading && article ? <Article newArticle={article} fullArticle={fullArticle}  /> : null
     
     return (
         <>

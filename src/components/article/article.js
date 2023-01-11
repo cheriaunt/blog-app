@@ -11,10 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchArticles, fetchDeleteArticle } from '../../services/BlogService';
 import { Modal } from 'antd';
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { fetchArticle } from '../../services/ArticleService';
-// import { useParams } from 'react-router-dom';
+import { getToken } from '../../utils/getToken';
 
 
 const Article = ({newArticle, fullArticle}) => {
@@ -22,17 +19,12 @@ const Article = ({newArticle, fullArticle}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [onDelete, setDelete] = useState(false);
-    const allArticles = useSelector((state) => state.articles.articles)
+    const allArticles = useSelector((state) => state.articles.articles);
     const username = localStorage.getItem('username');
-    const token = localStorage.getItem('token');
-    // const error = useSelector((state) => state.user.errors);
-    // console.log(error);
+    const token = getToken();
     const date = format(new Date(createdAt), 'LLLL d, y');
     const tags = !!tagList ? tagList.filter((item)=> (item !== null && item !== ''&& item !== ' ')).map((item) => (
-        <p className={`${styles['article-tag']}`} key={uuidv4()}>
-                     {item}
-                         </p>
-        )): null;
+        <p className={`${styles['article-tag']}`} key={uuidv4()}>{item}</p>)): null;
     useEffect(() => {
       if (onDelete === true && allArticles) {
         // dispatch(fetchArticles());
@@ -44,7 +36,6 @@ const Article = ({newArticle, fullArticle}) => {
     const showBody = fullArticle ? (
         <div className={`${styles['post-body']}`}>< ReactMarkdown  children={bodyMarkdown} remarkPlugins={[commentGfm]} /></div>
     ) : null;
-    // console.log(token);
     const buttonDelete =
     fullArticle && author.username === username ? (
       <button className={styles.delete} onClick={() => ShowConfirm(slug, token, dispatch, setDelete)}>

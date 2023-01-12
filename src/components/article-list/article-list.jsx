@@ -29,8 +29,9 @@ const ArticleList = () => {
     return(
         <>
             < div >
-            {loading && <Spin size='large' />}
+            
                 <ul className={classes.articleList}>
+                {loading && <Spin size='large' />}
                 {!loading && allArticles.length === 0 ? (
                     <h2>Статей не найдено</h2>
                 ) : (

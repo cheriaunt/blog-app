@@ -1,6 +1,4 @@
-// import { fetchGetUser } from './services/BlogService';
 import { Route, Routes, Navigate} from 'react-router-dom';
-// import{ useEffect, useState} from 'react';
 import classes from'./index.module.scss';
 
 
@@ -13,7 +11,6 @@ import SignUpPage from './pages/SignUpPage';
 import EditProfilePage from './pages/EditProfilePage';
 import EditArticlePage from './pages/EditArticlePage';
 import CreateArticlePage from './pages/NewArticlePage';
-// import { Alert } from 'antd';
 import NotFoundPage from './pages/NotFoundPage';
 
 
@@ -42,14 +39,7 @@ const App = () => {
             </Route>
             <Route
                 path="*"
-                // element={<Alert message={`This page does not exist, you can return to the ${<Link to="/articles">main page!</Link>}`} type='info' showIcon />
-                element={<NotFoundPage/>}
-                // <div >
-                //     <p>
-                //     This page does not exist, you can return to the <Link to="/articles">main page!</Link>
-                //     </p>
-                // </div>
-            />
+                element={<NotFoundPage/>}/>
         </Routes>
     </>
   );

@@ -1,11 +1,11 @@
-import ArticleList from '../components/article-list';
+import ArticleList from '../components/article-list'
 
 const ListPage = () => {
   return (
     <>
-      <ArticleList/>
-    </> 
-  );
+      <ArticleList />
+    </>
+  )
 }
 
-export default ListPage;
+export default ListPage

@@ -3,10 +3,10 @@ const initialState = {
   articles: [],
   articlesCount: 0,
   offset: 0,
-};
+}
 
-export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
-  
+export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES'
+
 export const articlesReducer = (state = initialState, action) => {
   switch (action?.type) {
     case GET_ALL_ARTICLES:
@@ -20,4 +20,4 @@ export const articlesReducer = (state = initialState, action) => {
     default:
       return state
   }
-};
+}

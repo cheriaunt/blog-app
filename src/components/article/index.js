@@ -1,5 +1,6 @@
-import classes from './article.module.scss';
-import withClass from '../../hoc/withClass';
-import Article from "./article";
+import withClass from '../../hoc/withClass'
 
-export default withClass(Article, classes.article);
+import classes from './article.module.scss'
+import Article from './article'
+
+export default withClass(Article, classes.article)

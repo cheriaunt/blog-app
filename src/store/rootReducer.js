@@ -1,12 +1,13 @@
-import { combineReducers } from 'redux';
-import { articleReducer } from './articleReducer';
-import { articlesReducer } from './articlesReducer';
-import { userReducer } from './userReducer';
+import { combineReducers } from 'redux'
+
+import { articleReducer } from './articleReducer'
+import { articlesReducer } from './articlesReducer'
+import { userReducer } from './userReducer'
 
 const rootReducer = combineReducers({
   articles: articlesReducer,
   article: articleReducer,
-  user : userReducer,
-});
+  user: userReducer,
+})
 
-export default rootReducer;
+export default rootReducer

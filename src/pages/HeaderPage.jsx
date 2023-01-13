@@ -1,13 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import Layout from '../components/layout/layout';
+import { Outlet } from 'react-router-dom'
+
+import Layout from '../components/layout/layout'
 
 const ListPage = () => {
   return (
     <>
       <Layout />
-      <Outlet/>
-    </> 
-  );
+      <Outlet />
+    </>
+  )
 }
 
-export default ListPage;
+export default ListPage
